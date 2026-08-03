@@ -275,14 +275,14 @@ a { color: inherit; text-decoration: none; }
   }
 
   .hero-art {
-    aspect-ratio: 1536 / 684;
+    aspect-ratio: 1024 / 1536;
     width: 100%;
     height: auto;
     display: block;
     margin: 0;
     padding: 0;
-    background-image: url("/assets/images/banner-mobile-limpo.webp");
-    background-size: cover;
+    background-image: url("/assets/images/banner-mobile-novo.webp");
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
     background-color: #050505;
