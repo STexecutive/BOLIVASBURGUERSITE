@@ -269,7 +269,7 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 780px) {
   .hero-art {
     aspect-ratio: auto;
-    min-height: calc(100vh - var(--header-h));
+    min-height: 550px;
     margin-top: var(--header-h);
     background-color: #050505;
     background-size: contain;
