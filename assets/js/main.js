@@ -93,7 +93,8 @@
   var navToggle = document.getElementById("navToggle");
   var mainNav = document.getElementById("mainNav");
   if (navToggle && mainNav) {
-    navToggle.addEventListener("click", function () {
+    navToggle.addEventListener("click", function (e) {
+      e.stopPropagation();
       var isOpen = mainNav.classList.toggle("is-open");
       navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
     });
@@ -102,6 +103,15 @@
         mainNav.classList.remove("is-open");
         navToggle.setAttribute("aria-expanded", "false");
       });
+    });
+    // Fechar menu ao clicar fora
+    document.addEventListener("click", function (e) {
+      if (mainNav.classList.contains("is-open") &&
+          e.target !== navToggle &&
+          !mainNav.contains(e.target)) {
+        mainNav.classList.remove("is-open");
+        navToggle.setAttribute("aria-expanded", "false");
+      }
     });
   }
 
