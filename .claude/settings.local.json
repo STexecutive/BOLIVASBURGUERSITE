@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la \"F:/\" 2>&1)",
+      "Bash(find \"F:/\" -maxdepth 3 -iname \"*foto*\" 2>&1)",
+      "PowerShell($sh = New-Object -ComObject WScript.Shell; $lnk = $sh.CreateShortcut\\(\"F:\\\\bolivasburguer\\\\fotos.lnk\"\\); $lnk.TargetPath)",
+      "Bash(ls -la \"C:/Users/Pc/Desktop/bolivas fotos 2026\" 2>&1)"
+    ]
+  }
+}
