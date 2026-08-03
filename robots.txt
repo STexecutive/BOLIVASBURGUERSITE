@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /assets/
+Disallow: /404.html
+Disallow: /politica-de-privacidade.html
 
 Sitemap: https://www.bolivasburguer.com.br/sitemap.xml
+Sitemap: https://www.bolivasburguer.com.br/sitemap-images.xml
