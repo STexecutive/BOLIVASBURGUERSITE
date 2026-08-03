@@ -67,7 +67,8 @@
     // Reposiciona quando a imagem de fundo terminar de carregar
     var artProbe = new Image();
     artProbe.onload = layoutHotspots;
-    artProbe.src = "/assets/images/hero-art.webp";
+    var isMobile = window.matchMedia("(max-width: 780px)").matches;
+    artProbe.src = isMobile ? "/assets/images/banner-mobile-limpo.webp" : "/assets/images/hero-art.webp";
   }
 
   /* O menu do topo já está desenhado na arte, então o cabeçalho real
