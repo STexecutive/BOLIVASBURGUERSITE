@@ -19,6 +19,7 @@
   --radius: 18px;
   --radius-sm: 12px;
   --header-h: 78px;
+  --header-h-mobile: 56px;
   --mobile-bar-h: 68px;
   --font-display: 'Anton', 'Poppins', sans-serif;
   --font-head: 'Poppins', 'Segoe UI', sans-serif;
@@ -263,17 +264,26 @@ a { color: inherit; text-decoration: none; }
   .hero-art { height: 900px; }
 }
 
-/* No celular a arte é deitada e ficaria uma faixa estreita.
-   Aqui ela aparece inteira e centralizada sobre o preto da própria arte,
-   sem deformar e sem cortar nenhum elemento. */
+/* No celular: reduz header, remove espaço preto, imagem ocupa largura total sem distorção */
 @media (max-width: 780px) {
+  .site-header {
+    height: var(--header-h-mobile);
+  }
+
+  html {
+    scroll-padding-top: calc(var(--header-h-mobile) + 12px);
+  }
+
   .hero-art {
-    aspect-ratio: auto;
-    min-height: 550px;
-    margin-top: var(--header-h);
-    background-color: #050505;
+    aspect-ratio: 1536 / 1024;
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
     background-size: contain;
     background-position: center center;
+    background-repeat: no-repeat;
+    background-color: #050505;
   }
 }
 
