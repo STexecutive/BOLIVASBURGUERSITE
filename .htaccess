@@ -33,22 +33,25 @@ RewriteRule ^([^.]+)$ index.html [L]
 </IfModule>
 
 # ---------- Cache do navegador ----------
+# O HTML nunca fica guardado: a cada visita o navegador pergunta ao servidor
+# se mudou (resposta 304 quando nao mudou, entao continua rapido). Assim o
+# celular sempre recebe a versao nova dos links ?v=... logo apos o deploy.
+# CSS/JS/imagens ficam guardados por 1 ano porque a URL muda a cada publicacao.
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresByType image/webp        "access plus 1 year"
   ExpiresByType image/jpeg        "access plus 1 year"
   ExpiresByType image/png         "access plus 1 year"
-  ExpiresByType text/css          "access plus 7 days"
-  ExpiresByType application/javascript "access plus 7 days"
-  ExpiresByType text/html         "access plus 1 hour"
+  ExpiresByType text/css          "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresDefault                  "access plus 1 year"
 </IfModule>
 
-# ---------- Prevenir cache agressivo de recursos dinâmicos ----------
 <IfModule mod_headers.c>
-  Header set Cache-Control "public, max-age=3600" "expr=%{CONTENT_TYPE} == 'text/html'"
-  Header set Cache-Control "public, max-age=604800" "expr=%{CONTENT_TYPE} == 'text/css'"
-  Header set Cache-Control "public, max-age=604800" "expr=%{CONTENT_TYPE} == 'application/javascript'"
-  Header set Cache-Control "public, max-age=31536000" "expr=%{CONTENT_TYPE} =~ m:image:"
+  Header set Cache-Control "no-cache, must-revalidate" "expr=%{CONTENT_TYPE} =~ m:text/html:"
+  Header set Cache-Control "public, max-age=31536000, immutable" "expr=%{CONTENT_TYPE} == 'text/css'"
+  Header set Cache-Control "public, max-age=31536000, immutable" "expr=%{CONTENT_TYPE} == 'application/javascript'"
+  Header set Cache-Control "public, max-age=31536000, immutable" "expr=%{CONTENT_TYPE} =~ m:image:"
 </IfModule>
 
 # ---------- Tipos MIME corretos ----------
