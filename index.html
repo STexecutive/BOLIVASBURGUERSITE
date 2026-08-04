@@ -36,9 +36,9 @@
      O banner e background-image no CSS, entao o navegador so descobriria a URL
      depois de baixar e interpretar o CSS. O preload comeca o download junto com
      o HTML. O atributo media evita baixar as duas versoes. -->
-<link rel="preload" as="image" href="/assets/images/banner-hero.webp" media="(max-width: 780px)" fetchpriority="high">
-<link rel="preload" as="image" href="/assets/images/hero-art-1536.webp" media="(min-width: 1201px)" fetchpriority="high">
-<link rel="preload" as="image" href="/assets/images/hero-art-1024.webp" media="(min-width: 781px) and (max-width: 1200px)" fetchpriority="high">
+<link rel="preload" as="image" href="/assets/images/banner-hero.webp" type="image/webp" media="(max-width: 780px)" fetchpriority="high">
+<link rel="preload" as="image" href="/assets/images/hero-art-1536.webp" type="image/webp" media="(min-width: 1201px)" fetchpriority="high">
+<link rel="preload" as="image" href="/assets/images/hero-art-1024.webp" type="image/webp" media="(min-width: 781px) and (max-width: 1200px)" fetchpriority="high">
 
 <!-- ===== Fonts ===== -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,7 +46,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Permanent+Marker&family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <!-- ===== CSS ===== -->
-<link rel="stylesheet" href="/assets/css/style.css?v=be75a8a618">
+<link rel="stylesheet" href="/assets/css/style.css?v=42b63ea52c">
 
 <!-- ===== Dados Estruturados Schema.org (Restaurant) ===== -->
 <script type="application/ld+json">
@@ -229,7 +229,10 @@
 <header class="site-header" id="topo">
   <div class="header-inner">
     <a href="#topo" class="logo" aria-label="Bolivas Burguer Artesanal - Início">
-      <img src="/assets/images/logo.webp" alt="Bolivas Burguer Artesanal" width="48" height="48" class="logo-img" fetchpriority="high" decoding="async">
+      <picture>
+        <source type="image/webp" srcset="/assets/images/logo.webp">
+        <img src="/assets/images/logo.jpg" alt="Bolivas Burguer Artesanal" width="48" height="48" class="logo-img" fetchpriority="high" decoding="async">
+      </picture>
       <span class="logo-text">Bolivas<strong>Burguer</strong></span>
     </a>
 
@@ -293,10 +296,10 @@
 <section id="loja" class="section section-loja">
   <div class="container loja-grid">
     <div class="loja-media reveal">
-      <img src="/assets/images/loja-1149.webp"
-           srcset="/assets/images/loja-600.webp 600w, /assets/images/loja-800.webp 800w, /assets/images/loja-1149.webp 1149w"
-           sizes="(max-width: 960px) 92vw, 561px"
-           alt="Fachada da Bolivas Burguer Artesanal em Sobradinho II" width="1149" height="963" loading="lazy" decoding="async">
+      <picture>
+        <source type="image/webp" srcset="/assets/images/loja-600.webp 600w, /assets/images/loja-800.webp 800w, /assets/images/loja-1149.webp 1149w" sizes="(max-width: 960px) 92vw, 561px">
+        <img src="/assets/images/loja-1149.jpg" alt="Fachada da Bolivas Burguer Artesanal em Sobradinho II" width="1149" height="963" loading="lazy" decoding="async">
+      </picture>
     </div>
     <div class="loja-text reveal">
       <span class="eyebrow">Nossa loja</span>
@@ -404,10 +407,10 @@
     <div class="product-grid">
       <div class="product-card reveal">
         <div class="product-img-wrap">
-          <img src="/assets/images/produto-classico-900.webp"
-               srcset="/assets/images/produto-classico-450.webp 450w, /assets/images/produto-classico-600.webp 600w, /assets/images/produto-classico-750.webp 750w, /assets/images/produto-classico-900.webp 900w"
-               sizes="(max-width: 620px) 88vw, (max-width: 1160px) 45vw, 260px"
-               alt="Hambúrguer Clássico da Bolivas Burguer, com carne 160g, maionese artesanal e queijo derretido" width="900" height="900" loading="lazy" decoding="async">
+          <picture>
+            <source type="image/webp" srcset="/assets/images/produto-classico-450.webp 450w, /assets/images/produto-classico-600.webp 600w, /assets/images/produto-classico-750.webp 750w, /assets/images/produto-classico-900.webp 900w" sizes="(max-width: 620px) 88vw, (max-width: 1160px) 45vw, 260px">
+            <img src="/assets/images/produto-classico-900.jpg" alt="Hambúrguer Clássico da Bolivas Burguer, com carne 160g, maionese artesanal e queijo derretido" width="900" height="900" loading="lazy" decoding="async">
+          </picture>
         </div>
         <h3>Clássico</h3>
         <p>Carne de 160g, maionese artesanal e queijo derretido. O clássico que nunca falha.</p>
@@ -415,10 +418,10 @@
 
       <div class="product-card reveal">
         <div class="product-img-wrap">
-          <img src="/assets/images/produto-duplo-batata-900.webp"
-               srcset="/assets/images/produto-duplo-batata-450.webp 450w, /assets/images/produto-duplo-batata-600.webp 600w, /assets/images/produto-duplo-batata-750.webp 750w, /assets/images/produto-duplo-batata-900.webp 900w"
-               sizes="(max-width: 620px) 88vw, (max-width: 1160px) 45vw, 260px"
-               alt="Combo Duplo Burguer com batata P da Bolivas Burguer" width="900" height="900" loading="lazy" decoding="async">
+          <picture>
+            <source type="image/webp" srcset="/assets/images/produto-duplo-batata-450.webp 450w, /assets/images/produto-duplo-batata-600.webp 600w, /assets/images/produto-duplo-batata-750.webp 750w, /assets/images/produto-duplo-batata-900.webp 900w" sizes="(max-width: 620px) 88vw, (max-width: 1160px) 45vw, 260px">
+            <img src="/assets/images/produto-duplo-batata-900.jpg" alt="Combo Duplo Burguer com batata P da Bolivas Burguer" width="900" height="900" loading="lazy" decoding="async">
+          </picture>
         </div>
         <h3>Combo Duplo Burguer</h3>
         <p>Duas carnes de 160g, queijo derretido e bacon crocante, acompanhado de batata P.</p>
@@ -426,10 +429,10 @@
 
       <div class="product-card reveal">
         <div class="product-img-wrap">
-          <img src="/assets/images/produto-combo-casal-900.webp"
-               srcset="/assets/images/produto-combo-casal-450.webp 450w, /assets/images/produto-combo-casal-600.webp 600w, /assets/images/produto-combo-casal-750.webp 750w, /assets/images/produto-combo-casal-900.webp 900w"
-               sizes="(max-width: 620px) 88vw, (max-width: 1160px) 45vw, 260px"
-               alt="Combo Casal da Bolivas Burguer, com 2 X-Bacon, 2 batatas e 2 bebidas em lata" width="900" height="900" loading="lazy" decoding="async">
+          <picture>
+            <source type="image/webp" srcset="/assets/images/produto-combo-casal-450.webp 450w, /assets/images/produto-combo-casal-600.webp 600w, /assets/images/produto-combo-casal-750.webp 750w, /assets/images/produto-combo-casal-900.webp 900w" sizes="(max-width: 620px) 88vw, (max-width: 1160px) 45vw, 260px">
+            <img src="/assets/images/produto-combo-casal-900.jpg" alt="Combo Casal da Bolivas Burguer, com 2 X-Bacon, 2 batatas e 2 bebidas em lata" width="900" height="900" loading="lazy" decoding="async">
+          </picture>
         </div>
         <h3>Combo Casal</h3>
         <p>2 X-Bacon, 2 batatas e 2 bebidas em lata. Sabor de verdade para dividir a dois.</p>
@@ -437,10 +440,10 @@
 
       <div class="product-card reveal">
         <div class="product-img-wrap">
-          <img src="/assets/images/produto-familia-900.webp"
-               srcset="/assets/images/produto-familia-450.webp 450w, /assets/images/produto-familia-600.webp 600w, /assets/images/produto-familia-750.webp 750w, /assets/images/produto-familia-900.webp 900w"
-               sizes="(max-width: 620px) 88vw, (max-width: 1160px) 45vw, 260px"
-               alt="Combo Família da Bolivas Burguer, com 4 X-Bacon, Coca-Cola 2L e fritas M" width="900" height="900" loading="lazy" decoding="async">
+          <picture>
+            <source type="image/webp" srcset="/assets/images/produto-familia-450.webp 450w, /assets/images/produto-familia-600.webp 600w, /assets/images/produto-familia-750.webp 750w, /assets/images/produto-familia-900.webp 900w" sizes="(max-width: 620px) 88vw, (max-width: 1160px) 45vw, 260px">
+            <img src="/assets/images/produto-familia-900.jpg" alt="Combo Família da Bolivas Burguer, com 4 X-Bacon, Coca-Cola 2L e fritas M" width="900" height="900" loading="lazy" decoding="async">
+          </picture>
         </div>
         <h3>Combo Família</h3>
         <p>4 X-Bacon, Coca-Cola 2L e fritas M. Sabor que une todo mundo na mesma mesa.</p>
@@ -661,7 +664,10 @@
 <footer class="site-footer" id="contato">
   <div class="container footer-inner">
     <div class="footer-brand">
-      <img src="/assets/images/logo.webp" alt="Bolivas Burguer Artesanal" width="40" height="40" class="logo-img" loading="lazy">
+      <picture>
+        <source type="image/webp" srcset="/assets/images/logo.webp">
+        <img src="/assets/images/logo.jpg" alt="Bolivas Burguer Artesanal" width="40" height="40" class="logo-img" loading="lazy">
+      </picture>
       <div>
         <strong>Bolivas Burguer Artesanal</strong>
         <span>Sobradinho II/DF</span>
