@@ -94,24 +94,30 @@
   var navToggle = document.getElementById("navToggle");
   var mainNav = document.getElementById("mainNav");
   var navOverlay = document.getElementById("navOverlay");
-  var navClose = document.getElementById("navClose");
 
   function closeNav() {
     mainNav.classList.remove("is-open");
     navOverlay.classList.remove("is-visible");
     navToggle.setAttribute("aria-expanded", "false");
+    navToggle.textContent = "";
     document.body.style.overflow = "";
+    // Restaurar os 3 spans do hambúrguer
+    for (var i = 0; i < 3; i++) {
+      var span = document.createElement("span");
+      navToggle.appendChild(span);
+    }
   }
 
   function openNav() {
     mainNav.classList.add("is-open");
     navOverlay.classList.add("is-visible");
     navToggle.setAttribute("aria-expanded", "true");
+    navToggle.textContent = "✕";
     document.body.style.overflow = "hidden";
   }
 
-  if (navToggle && mainNav && navOverlay && navClose) {
-    // Abrir menu ao clicar no hambúrguer
+  if (navToggle && mainNav && navOverlay) {
+    // Toggle ao clicar no hambúrguer/X
     navToggle.addEventListener("click", function (e) {
       e.stopPropagation();
       if (mainNav.classList.contains("is-open")) {
@@ -119,12 +125,6 @@
       } else {
         openNav();
       }
-    });
-
-    // Fechar ao clicar no X
-    navClose.addEventListener("click", function (e) {
-      e.stopPropagation();
-      closeNav();
     });
 
     // Fechar ao clicar em um link
@@ -160,11 +160,12 @@
       }
     }, { passive: true });
 
-    // Fechar ao clicar fora do menu (mas não no overlay que já fecha)
+    // Fechar ao clicar fora do menu
     document.addEventListener("click", function (e) {
       if (mainNav.classList.contains("is-open") &&
           e.target !== navToggle &&
           e.target !== navOverlay &&
+          !navToggle.contains(e.target) &&
           !mainNav.contains(e.target)) {
         closeNav();
       }
