@@ -263,6 +263,10 @@ a { color: inherit; text-decoration: none; }
 .hero-art {
   position: relative;
   width: 100%;
+  /* As areas clicaveis sao posicionadas por JS. Entre girar a tela e o
+     recalculo, elas podem ficar alem da largura da pagina e criar rolagem
+     horizontal. O overflow corta esse excesso e o site nunca "anda" de lado. */
+  overflow: hidden;
   /* A arte tem 1536x1024. Travando a proporção, nada é cortado e os botões
      desenhados na base continuam visíveis e clicáveis em qualquer tela.
      Em um monitor comum (~1350px de largura) isso dá exatamente 900px de altura. */
@@ -333,7 +337,12 @@ a { color: inherit; text-decoration: none; }
   border: 1px solid var(--border);
 }
 .loja-text h2 { text-align: left; }
-.loja-text p { font-size: 1.05rem; }
+/* Ritmo do bloco: rotulo -> titulo -> texto -> botao, com respiros crescentes
+   para o olho entender a hierarquia (antes era 12 / 24 / 16, irregular) */
+.loja-text .eyebrow { margin-bottom: 12px; }
+.loja-text p { font-size: 1.05rem; margin-bottom: 18px; }
+.loja-text p:last-of-type { margin-bottom: 28px; }
+.loja-text .btn { margin-top: 0; }
 
 /* ===== Sobre ===== */
 .sobre-card {
@@ -429,15 +438,14 @@ a { color: inherit; text-decoration: none; }
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   text-align: center;
-  padding: 70px 0;
+  /* mesmo padding das demais secoes: mantem o ritmo vertical da pagina */
 }
 .cta-faixa-inner h2 {
   color: var(--white);
-  margin-bottom: 1.6rem;
+  /* mesma margem e escala dos outros h2, so muda a familia (Anton) */
   font-family: 'Anton', var(--font-head);
   text-transform: uppercase;
   font-weight: 400;
-  font-size: clamp(1.6rem, 4.4vw, 2.6rem);
 }
 
 /* ===== Avaliações: carrossel ===== */
@@ -579,8 +587,9 @@ a { color: inherit; text-decoration: none; }
   justify-content: center;
   gap: 18px;
 }
-/* O botão de avaliar é o principal, por isso fica ~8% maior */
-.btn-avaliar { padding: 19px 39px; font-size: 1.13rem; }
+/* O botao de avaliar usa a mesma medida do .btn-lg. Antes tinha padding e
+   fonte proprios (19px/39px, 1.13rem), criando uma terceira altura de botao
+   na pagina. O destaque dele vem da cor dourada, nao do tamanho. */
 
 /* No celular um fica abaixo do outro, ocupando a mesma largura */
 @media (max-width: 620px) {
