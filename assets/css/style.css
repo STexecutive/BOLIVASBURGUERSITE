@@ -214,6 +214,12 @@ a { color: inherit; text-decoration: none; }
 .main-nav a:hover { color: var(--gold); }
 .main-nav a.active { color: var(--gold); border-bottom-color: var(--gold); }
 
+/* No computador o cabecalho e uma barra horizontal enxuta: sem emojis e sem
+   os links de aplicativo, que sao proprios da gaveta do celular. Os dois
+   voltam a aparecer dentro do @media de 780px. */
+.nav-emoji { display: none; }
+.nav-link-app { display: none; }
+
 .nav-toggle {
   display: none;
   flex-direction: column;
@@ -826,6 +832,10 @@ a { color: inherit; text-decoration: none; }
     text-decoration: none;
     transition: background-color 0.2s, color 0.2s;
   }
+
+  /* Na gaveta do celular os emojis e os links de aplicativo voltam */
+  .nav-emoji { display: inline; }
+  .nav-link-app { display: flex; }
 
   .main-nav a:hover {
     background-color: rgba(242,169,0,.08);
