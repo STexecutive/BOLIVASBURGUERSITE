@@ -90,28 +90,83 @@
     window.addEventListener("resize", toggleHeader);
   }
 
-  // Menu mobile
+  // Menu mobile drawer
   var navToggle = document.getElementById("navToggle");
   var mainNav = document.getElementById("mainNav");
-  if (navToggle && mainNav) {
+  var navOverlay = document.getElementById("navOverlay");
+  var navClose = document.getElementById("navClose");
+
+  function closeNav() {
+    mainNav.classList.remove("is-open");
+    navOverlay.classList.remove("is-visible");
+    navToggle.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  }
+
+  function openNav() {
+    mainNav.classList.add("is-open");
+    navOverlay.classList.add("is-visible");
+    navToggle.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+  }
+
+  if (navToggle && mainNav && navOverlay && navClose) {
+    // Abrir menu ao clicar no hambúrguer
     navToggle.addEventListener("click", function (e) {
       e.stopPropagation();
-      var isOpen = mainNav.classList.toggle("is-open");
-      navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      if (mainNav.classList.contains("is-open")) {
+        closeNav();
+      } else {
+        openNav();
+      }
     });
+
+    // Fechar ao clicar no X
+    navClose.addEventListener("click", function (e) {
+      e.stopPropagation();
+      closeNav();
+    });
+
+    // Fechar ao clicar em um link
     mainNav.querySelectorAll("a").forEach(function (link) {
       link.addEventListener("click", function () {
-        mainNav.classList.remove("is-open");
-        navToggle.setAttribute("aria-expanded", "false");
+        closeNav();
       });
     });
-    // Fechar menu ao clicar fora
+
+    // Fechar ao clicar no overlay
+    navOverlay.addEventListener("click", function () {
+      closeNav();
+    });
+
+    // Gestos touch para fechar
+    var touchStartX = 0;
+    var touchStartY = 0;
+    mainNav.addEventListener("touchstart", function (e) {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    mainNav.addEventListener("touchmove", function (e) {
+      if (!mainNav.classList.contains("is-open")) return;
+      var currentX = e.touches[0].clientX;
+      var currentY = e.touches[0].clientY;
+      var diffX = currentX - touchStartX;
+      var diffY = currentY - touchStartY;
+
+      // Só considerar gesto horizontal se movimento horizontal é maior
+      if (Math.abs(diffX) > Math.abs(diffY) && diffX > 70) {
+        closeNav();
+      }
+    }, { passive: true });
+
+    // Fechar ao clicar fora do menu (mas não no overlay que já fecha)
     document.addEventListener("click", function (e) {
       if (mainNav.classList.contains("is-open") &&
           e.target !== navToggle &&
+          e.target !== navOverlay &&
           !mainNav.contains(e.target)) {
-        mainNav.classList.remove("is-open");
-        navToggle.setAttribute("aria-expanded", "false");
+        closeNav();
       }
     });
   }

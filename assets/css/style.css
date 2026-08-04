@@ -710,36 +710,112 @@ a { color: inherit; text-decoration: none; }
 }
 
 @media (max-width: 780px) {
-  .main-nav { display: none; }
-  .nav-toggle { display: flex; }
+  .main-nav {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 88%;
+    max-width: 360px;
+    height: 100dvh;
+    background: #0a0a0a;
+    z-index: 1001;
+    padding: 0;
+    gap: 0;
+    border: none;
+    box-shadow: -4px 0 20px rgba(0,0,0,.8);
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
 
   .main-nav.is-open {
     display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: var(--header-h-mobile);
-    left: 0; right: 0;
-    background: rgba(10,10,10,.98);
-    padding: 20px;
-    gap: 18px;
-    border-bottom: 1px solid var(--border);
-    z-index: 999;
-    box-shadow: 0 4px 12px rgba(0,0,0,.5);
+    transform: translateX(0);
   }
 
-  .main-nav.is-open a {
-    padding: 12px 0;
+  .nav-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 20px;
+    border-bottom: 1px solid rgba(242,169,0,.2);
+    background: rgba(10,10,10,.95);
+    position: relative;
+  }
+
+  .nav-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .nav-brand {
     color: var(--white);
-    font-size: 1rem;
-    border-bottom: 1px solid rgba(242,169,0,.1);
+    font-weight: 700;
+    font-size: 1.1rem;
+    flex-grow: 1;
   }
 
-  .main-nav.is-open a:last-child {
-    border-bottom: none;
+  .nav-close {
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    transition: color 0.2s;
   }
 
-  .main-nav.is-open a:hover {
+  .nav-close:hover {
     color: var(--gold);
+  }
+
+  .main-nav a {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 20px;
+    color: var(--white);
+    font-size: 1.05rem;
+    border-bottom: 1px solid rgba(242,169,0,.1);
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+  }
+
+  .main-nav a:hover {
+    background-color: rgba(242,169,0,.08);
+    color: var(--gold);
+  }
+
+  .main-nav a:active {
+    background-color: rgba(242,169,0,.12);
+  }
+
+  .nav-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,.6);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .nav-overlay.is-visible {
+    display: block;
+    opacity: 1;
   }
 
   /* Ocultar hotspots de navegação, logo, apps e Ver Local no banner mobile */
