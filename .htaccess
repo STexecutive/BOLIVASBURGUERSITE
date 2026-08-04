@@ -8,14 +8,22 @@ ErrorDocument 404 /404.html
 
 RewriteEngine On
 
-# ---------- Forca HTTPS (SOMENTE para conexoes desecriptadas) ----------
+# ---------- HTTPS + www em UM unico salto ----------
+# Antes eram duas regras encadeadas: http://dominio -> https://dominio -> https://www.
+# Quem digitava o endereco sem www pagava dois redirecionamentos (~0,55s).
+# Agora as duas regras ja apontam para o endereco final, entao e sempre 1 salto.
+#
+# As duas condicoes da primeira regra sao AND de proposito: o site fica atras
+# de proxy, onde %{HTTPS} vem "off" mesmo em conexao segura. So o par
+# (HTTPS off E X-Forwarded-Proto != https) significa "de fato nao e HTTPS".
+# Usar [OR] aqui criaria um laco infinito de redirecionamento.
 RewriteCond %{HTTPS} off
 RewriteCond %{HTTP:X-Forwarded-Proto} !https
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+RewriteRule ^(.*)$ https://www.bolivasburguer.com.br%{REQUEST_URI} [R=301,L]
 
-# ---------- Redireciona sem-www para www (SOMENTE se for HTTP_HOST sem www) ----------
-RewriteCond %{HTTP_HOST} ^bolivasburguer\.com\.br$ [NC]
-RewriteRule ^(.*)$ https://www.bolivasburguer.com.br$1 [R=301,L]
+# Ja esta em HTTPS, mas sem o www
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule ^(.*)$ https://www.bolivasburguer.com.br%{REQUEST_URI} [R=301,L]
 
 # ---------- Nao redireciona recursos (CSS, JS, imagens, etc) ----------
 RewriteCond %{REQUEST_FILENAME} -f [OR]
