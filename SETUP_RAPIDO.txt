@@ -1,0 +1,113 @@
+🚀 SETUP RÁPIDO - Deploy Automático Instantâneo
+================================================
+
+⏱️ TEMPO TOTAL: ~15 minutos
+
+═══════════════════════════════════════════════════════════════
+
+PASSO 1: Gerar Deploy Key (no seu PC/Mac)
+─────────────────────────────────────────
+Abra Terminal/PowerShell e rode:
+
+ssh-keygen -t ed25519 -f ~/.ssh/deploy_key -N ""
+
+Copie a chave pública:
+- Windows: type %USERPROFILE%\.ssh\deploy_key.pub
+- Mac/Linux: cat ~/.ssh/deploy_key.pub
+
+═══════════════════════════════════════════════════════════════
+
+PASSO 2: Adicionar Deploy Key no GitHub
+─────────────────────────────────────────
+1. Abra: https://github.com/STexecutive/BOLIVASBURGUERSITE
+2. Clique: Settings → Deploy keys → Add deploy key
+3. Cole a chave pública que você copiou
+4. ✅ Marque "Allow write access"
+5. Clique em "Add key"
+
+Depois copie a chave PRIVADA:
+- Windows: type %USERPROFILE%\.ssh\deploy_key
+- Mac/Linux: cat ~/.ssh/deploy_key
+
+═══════════════════════════════════════════════════════════════
+
+PASSO 3: Configurar na Hostinger (via SFTP)
+─────────────────────────────────────────
+1. Abra seu cliente SFTP (FileZilla, WinSCP, etc)
+2. Conecte com suas credenciais Hostinger
+3. Vá para: /home/seu-usuario/.ssh/
+4. Se não existir, crie a pasta
+5. Crie arquivo "authorized_keys" com a chave pública
+6. Salve e defina permissões: chmod 700 ~/.ssh
+
+═══════════════════════════════════════════════════════════════
+
+PASSO 4: Clone do Git (SSH na Hostinger)
+─────────────────────────────────────────
+Via SSH (terminal):
+
+ssh seu-usuario@seu-host.hostinger.com
+
+Dentro do servidor:
+
+cd public_html
+git clone git@github.com:STexecutive/BOLIVASBURGUERSITE.git .
+git config user.email "seu-email@github.com"
+git config user.name "Deploy Bot"
+
+═══════════════════════════════════════════════════════════════
+
+PASSO 5: Gerar Secret (no Terminal)
+─────────────────────────────────────
+openssl rand -base64 32
+
+Copie a saída (você vai usar no GitHub)
+
+═══════════════════════════════════════════════════════════════
+
+PASSO 6: Upload deploy.php (via SFTP)
+────────────────────────────────────
+1. Copie o arquivo "deploy.php" para public_html/
+2. Abra ele e substitua:
+   - /home/seu-usuario/public_html (caminho real)
+   - seu-secret-aqui (pelo secret do Passo 5)
+3. Salve
+
+═══════════════════════════════════════════════════════════════
+
+PASSO 7: Webhook no GitHub
+──────────────────────────
+1. Abra: https://github.com/STexecutive/BOLIVASBURGUERSITE
+2. Clique: Settings → Webhooks → Add webhook
+3. Preencha:
+   - Payload URL: https://www.bolivasburguer.com.br/deploy.php
+   - Content type: application/json
+   - Secret: (cole o secret do Passo 5)
+   - Events: Push events
+4. ✅ Active
+5. Clique: Add webhook
+
+Teste clicando em "Recent Deliveries" (deve ver status 200)
+
+═══════════════════════════════════════════════════════════════
+
+✅ PRONTO!
+
+Agora quando você faz:
+  git push
+
+O site atualiza automaticamente em ~5 segundos!
+
+═══════════════════════════════════════════════════════════════
+
+PUBLICAR CÓDIGO:
+
+git add .
+git commit -m "descrição"
+git push
+
+Pronto! ✨
+
+═══════════════════════════════════════════════════════════════
+
+Documentação completa: DEPLOY_AUTOMATICO.md
