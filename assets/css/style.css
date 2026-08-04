@@ -627,6 +627,9 @@ a { color: inherit; text-decoration: none; }
   gap: 12px;
   color: var(--text-muted);
   font-size: .9rem;
+  /* Marca e links ocupam o mesmo espaco dos dois lados, assim o bloco do
+     Instagram cai no centro real do rodape */
+  flex: 1;
 }
 .footer-brand div { display: flex; flex-direction: column; }
 .footer-brand strong { color: var(--gold); }
@@ -636,6 +639,8 @@ a { color: inherit; text-decoration: none; }
   flex-wrap: wrap;
   font-size: .88rem;
   color: var(--text-muted);
+  flex: 1;
+  justify-content: flex-end;
 }
 .footer-links a:hover { color: var(--gold); }
 .footer-copy {
@@ -645,12 +650,26 @@ a { color: inherit; text-decoration: none; }
   color: #6b625a;
   margin: 22px 0 0;
 }
-.footer-info-block {
-  display: none;
+/* Bloco do Instagram: unica rede social no rodape, centralizado entre a
+   marca (esquerda) e os links (direita) */
+.footer-instagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: .88rem;
+  color: var(--text-muted);
 }
+.footer-instagram > div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.footer-instagram a { color: var(--text-muted); }
+.footer-instagram a:hover { color: var(--gold); }
 .footer-info-emoji {
   font-size: 1.3rem;
-  margin-bottom: 4px;
+  line-height: 1;
 }
 .footer-info-title {
   font-size: .75rem;
@@ -834,36 +853,18 @@ a { color: inherit; text-decoration: none; }
     align-items: flex-start;
     gap: 28px;
   }
+  /* O nav so contem os links de desktop, entao no celular ele sairia vazio
+     e o gap da coluna deixaria um buraco no rodape. */
   .footer-links {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-    width: 100%;
-    order: 2;
-  }
-  .footer-info-block {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    width: 100%;
-    font-size: .85rem;
-  }
-  .footer-info-block > div:last-child {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  .footer-info-block a {
-    color: var(--text-muted);
-  }
-  .footer-info-block a:hover {
-    color: var(--gold);
-  }
-  .footer-links-desktop {
     display: none;
+  }
+  .footer-instagram {
+    order: 2;
+    width: 100%;
   }
   .footer-brand {
     order: 1;
+    flex: none; /* em coluna, o flex:1 do desktop esticaria a altura */
   }
   .footer-copy {
     order: 3;
