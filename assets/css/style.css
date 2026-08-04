@@ -218,9 +218,11 @@ a { color: inherit; text-decoration: none; }
   display: none;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   gap: 5px;
-  width: 40px;
-  height: 40px;
+  /* 44x44 e o alvo de toque minimo recomendado (WCAG 2.5.5 / Apple HIG) */
+  width: 44px;
+  height: 44px;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -531,10 +533,11 @@ a { color: inherit; text-decoration: none; }
 .carrossel-pontos {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 14px;
   margin-top: 22px;
 }
 .carrossel-ponto {
+  position: relative;
   width: 10px; height: 10px;
   padding: 0;
   border: 1px solid var(--border);
@@ -542,6 +545,17 @@ a { color: inherit; text-decoration: none; }
   background: transparent;
   cursor: pointer;
   transition: background .2s ease, transform .2s ease, border-color .2s ease;
+}
+/* O ponto continua com 10px na tela, mas a area que responde ao toque cresce
+   para 24x40. Sem isso, acertar um alvo de 10px com o dedo e dificil. */
+.carrossel-ponto::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 40px;
 }
 .carrossel-ponto:hover { border-color: var(--gold); }
 .carrossel-ponto.is-ativo { background: var(--gold); border-color: var(--gold); transform: scale(1.25); }
@@ -647,7 +661,9 @@ a { color: inherit; text-decoration: none; }
   width: 100%;
   text-align: center;
   font-size: .8rem;
-  color: #6b625a;
+  /* #6b625a dava contraste 3.4:1 sobre o fundo do rodape, abaixo do minimo
+     de 4.5:1 exigido pela WCAG para texto pequeno */
+  color: #9a9188;
   margin: 22px 0 0;
 }
 /* Bloco do Instagram: unica rede social no rodape, centralizado entre a
@@ -665,7 +681,13 @@ a { color: inherit; text-decoration: none; }
   flex-direction: column;
   gap: 2px;
 }
-.footer-instagram a { color: var(--text-muted); }
+.footer-instagram a {
+  color: var(--text-muted);
+  /* garante 24px de altura de toque, o minimo da WCAG 2.5.8 */
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+}
 .footer-instagram a:hover { color: var(--gold); }
 .footer-info-emoji {
   font-size: 1.3rem;
@@ -748,7 +770,8 @@ a { color: inherit; text-decoration: none; }
     height: 100dvh;
     background: #0a0a0a;
     z-index: 1001;
-    padding: 20px 0 0 0;
+    /* espaco no topo para o botao de fechar */
+    padding: 68px 0 0 0;
     gap: 0;
     border: none;
     box-shadow: -4px 0 20px rgba(0,0,0,.8);
@@ -756,7 +779,6 @@ a { color: inherit; text-decoration: none; }
     transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     overflow-y: auto;
     overflow-x: hidden;
-    padding-top: 68px;
   }
 
   .main-nav.is-open {

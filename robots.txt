@@ -1,8 +1,14 @@
 User-agent: *
 Allow: /
-Disallow: /assets/
+
+# O Google precisa ler CSS, JS e imagens para renderizar a pagina e avaliar
+# se ela e compativel com celular. Bloquear /assets/ prejudicava o ranqueamento
+# e tirava as fotos dos pratos do Google Imagens.
+
+# A politica de privacidade continua indexavel: ela esta no sitemap.xml e
+# bloquea-la aqui criava contradicao entre os dois arquivos.
+
 Disallow: /404.html
-Disallow: /politica-de-privacidade.html
 
 Sitemap: https://www.bolivasburguer.com.br/sitemap.xml
 Sitemap: https://www.bolivasburguer.com.br/sitemap-images.xml

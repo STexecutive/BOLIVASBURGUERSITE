@@ -22,8 +22,11 @@ RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# ---------- Serve index.html para URLs sem arquivo ---
-RewriteRule ^([^.]+)$ index.html [L]
+# ---------- Sem regra de "cai tudo no index.html" ----------
+# O site e uma pagina unica navegada por ancoras (#sobre, #cardapio...), nao
+# tem rotas amigaveis. Servir index.html para qualquer URL fazia /qualquer-coisa
+# responder 200 com a home (soft 404), e o Google indexava URLs inexistentes.
+# Sem essa regra, URLs invalidas caem no ErrorDocument 404 acima.
 
 # ---------- Compactacao (deixa o site mais leve) ----------
 <IfModule mod_deflate.c>
