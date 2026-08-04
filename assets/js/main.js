@@ -68,7 +68,7 @@
     var artProbe = new Image();
     artProbe.onload = layoutHotspots;
     var isMobile = window.matchMedia("(max-width: 780px)").matches;
-    artProbe.src = isMobile ? "/assets/images/banner-hero.webp" : "/assets/images/hero-art.webp";
+    artProbe.src = isMobile ? "/assets/images/banner-hero.webp" : "/assets/images/hero-art-1536.webp";
   }
 
   /* O menu do topo já está desenhado na arte, então o cabeçalho real
