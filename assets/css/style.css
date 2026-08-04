@@ -234,6 +234,8 @@ a { color: inherit; text-decoration: none; }
   transition: transform .2s ease, opacity .2s ease;
 }
 
+.nav-close { display: none; }
+
 /* ===== Hero: arte oficial como fundo ===== */
 /* Texto real do hero: invisível na tela, disponível para Google e leitores de tela */
 .visually-hidden {
@@ -268,7 +270,6 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 780px) {
   .site-header {
     height: var(--header-h-mobile);
-    margin-bottom: 16px;
   }
 
   html {
@@ -280,7 +281,9 @@ a { color: inherit; text-decoration: none; }
     width: 100%;
     height: auto;
     display: block;
-    margin: 0;
+    /* O cabeçalho é fixed, então a margem precisa descontar a altura dele
+       para o banner não ficar escondido atrás. */
+    margin: calc(var(--header-h-mobile) + 24px) 0 0 0;
     padding: 0;
     background-image: url("/assets/images/banner-hero-novo.jpg");
     background-size: cover;
@@ -711,6 +714,10 @@ a { color: inherit; text-decoration: none; }
 }
 
 @media (max-width: 780px) {
+  .nav-toggle {
+    display: flex;
+  }
+
   .main-nav {
     display: flex;
     flex-direction: column;
@@ -730,10 +737,38 @@ a { color: inherit; text-decoration: none; }
     transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     overflow-y: auto;
     overflow-x: hidden;
+    padding-top: 68px;
   }
 
   .main-nav.is-open {
     transform: translateX(0);
+  }
+
+  .nav-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 52px;
+    height: 52px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    color: var(--white);
+    font-size: 2.1rem;
+    line-height: 1;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .nav-close span { pointer-events: none; }
+
+  .nav-close:active {
+    background: rgba(242,169,0,.15);
+    color: var(--gold);
   }
 
   .main-nav a {

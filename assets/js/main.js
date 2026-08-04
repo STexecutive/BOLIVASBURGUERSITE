@@ -68,7 +68,7 @@
     var artProbe = new Image();
     artProbe.onload = layoutHotspots;
     var isMobile = window.matchMedia("(max-width: 780px)").matches;
-    artProbe.src = isMobile ? "/assets/images/banner-mobile.webp" : "/assets/images/hero-art.webp";
+    artProbe.src = isMobile ? "/assets/images/banner-hero-novo.jpg" : "/assets/images/hero-art.webp";
   }
 
   /* O menu do topo já está desenhado na arte, então o cabeçalho real
@@ -94,52 +94,43 @@
   var navToggle = document.getElementById("navToggle");
   var mainNav = document.getElementById("mainNav");
   var navOverlay = document.getElementById("navOverlay");
+  var navClose = document.getElementById("navClose");
 
   function closeNav() {
     mainNav.classList.remove("is-open");
     navOverlay.classList.remove("is-visible");
     navToggle.setAttribute("aria-expanded", "false");
-    navToggle.textContent = "";
     document.body.style.overflow = "";
-    // Restaurar os 3 spans do hambúrguer
-    for (var i = 0; i < 3; i++) {
-      var span = document.createElement("span");
-      navToggle.appendChild(span);
-    }
   }
 
   function openNav() {
     mainNav.classList.add("is-open");
     navOverlay.classList.add("is-visible");
     navToggle.setAttribute("aria-expanded", "true");
-    navToggle.textContent = "✕";
     document.body.style.overflow = "hidden";
   }
 
   if (navToggle && mainNav && navOverlay) {
-    // Toggle ao clicar no hambúrguer/X
     navToggle.addEventListener("click", function (e) {
       e.stopPropagation();
-      if (mainNav.classList.contains("is-open")) {
-        closeNav();
-      } else {
-        openNav();
-      }
+      if (mainNav.classList.contains("is-open")) closeNav();
+      else openNav();
     });
 
-    // Fechar ao clicar em um link
-    mainNav.querySelectorAll("a").forEach(function (link) {
-      link.addEventListener("click", function () {
+    if (navClose) {
+      navClose.addEventListener("click", function (e) {
+        e.stopPropagation();
         closeNav();
       });
+    }
+
+    mainNav.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", closeNav);
     });
 
-    // Fechar ao clicar no overlay
-    navOverlay.addEventListener("click", function () {
-      closeNav();
-    });
+    navOverlay.addEventListener("click", closeNav);
 
-    // Gestos touch para fechar
+    // Deslizar o dedo para a direita fecha o menu
     var touchStartX = 0;
     var touchStartY = 0;
     mainNav.addEventListener("touchstart", function (e) {
@@ -149,26 +140,21 @@
 
     mainNav.addEventListener("touchmove", function (e) {
       if (!mainNav.classList.contains("is-open")) return;
-      var currentX = e.touches[0].clientX;
-      var currentY = e.touches[0].clientY;
-      var diffX = currentX - touchStartX;
-      var diffY = currentY - touchStartY;
-
-      // Só considerar gesto horizontal se movimento horizontal é maior
-      if (Math.abs(diffX) > Math.abs(diffY) && diffX > 70) {
-        closeNav();
-      }
+      var diffX = e.touches[0].clientX - touchStartX;
+      var diffY = e.touches[0].clientY - touchStartY;
+      if (Math.abs(diffX) > Math.abs(diffY) && diffX > 70) closeNav();
     }, { passive: true });
 
-    // Fechar ao clicar fora do menu
     document.addEventListener("click", function (e) {
       if (mainNav.classList.contains("is-open") &&
-          e.target !== navToggle &&
-          e.target !== navOverlay &&
           !navToggle.contains(e.target) &&
           !mainNav.contains(e.target)) {
         closeNav();
       }
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && mainNav.classList.contains("is-open")) closeNav();
     });
   }
 
