@@ -311,20 +311,23 @@ a { color: inherit; text-decoration: none; }
     margin: calc(var(--header-h-mobile) + 24px) 0 0 0;
     padding: 0;
 
-    /* Teto de altura: o que sobra da tela depois do cabecalho, da margem e
-       da faixa de baixo. A faixa reserva a barra "Ver Cardapio" (68px), o
-       vao ate o botao do WhatsApp (18px), o proprio botao (56px) e um
-       respiro (8px) — assim o WhatsApp nunca fica por cima dos produtos.
-       Em telas altas a proporcao acima manda; em telas baixas este teto
-       entra e o "contain" encolhe a arte inteira, sem cortar nem esticar. */
-    max-height: calc(100dvh - var(--header-h-mobile) - 24px - 150px);
+    /* Teto de altura: sobra da tela depois do cabecalho, da margem e da
+       barra "Ver Cardapio". Em telas altas a proporcao acima manda e nada
+       e cortado; em telas baixas este teto entra e o "cover" apara alguns
+       pixels em cima e embaixo — nunca as laterais. */
+    max-height: calc(100dvh - var(--header-h-mobile) - 24px - var(--mobile-bar-h) - 8px);
 
     background-image: url("/assets/images/capa-hero.jpg");
     background-image: image-set(
       url("/assets/images/capa-hero.webp") type("image/webp"),
       url("/assets/images/capa-hero.jpg") type("image/jpeg"));
-    background-size: contain;
-    background-position: center;
+    /* "cover" e o equivalente do object-fit:cover para imagem de fundo:
+       preenche a largura inteira sem deformar. Sem faixas pretas laterais. */
+    background-size: cover;
+    /* Ancorado no topo de proposito. Centralizado, o corte de telas baixas
+       se divide em cima e embaixo e arranha o topo das letras de "BOLIVAS".
+       No topo, o que sai e so a tabua de madeira do rodape da arte. */
+    background-position: center top;
     background-repeat: no-repeat;
     background-color: #050505;
   }
