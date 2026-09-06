@@ -222,6 +222,38 @@
 }
 </script>
 
+
+  <!-- ===== Meta Pixel ===== -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window,document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1541760569488398');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" alt=""
+    src="https://www.facebook.com/tr?id=1541760569488398&ev=PageView&noscript=1" /></noscript>
+
+  <!-- Eventos do Pixel nos botoes do site -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('a[href*="wa.me"], a[href*="whatsapp"]').forEach(function (el) {
+      el.addEventListener('click', function () { if (window.fbq) fbq('track', 'Contact', { content_name: 'whatsapp' }); });
+    });
+    document.querySelectorAll('a[href*="menudino"]').forEach(function (el) {
+      el.addEventListener('click', function () { if (window.fbq) fbq('track', 'ViewContent', { content_name: 'cardapio_online' }); });
+    });
+    document.querySelectorAll('a[href*="maps.google"], a[href*="google.com/maps"]').forEach(function (el) {
+      el.addEventListener('click', function () { if (window.fbq) fbq('track', 'FindLocation', { content_name: 'como_chegar' }); });
+    });
+  });
+  </script>
+  <!-- ===== fim Meta Pixel ===== -->
 </head>
 <body>
 
